@@ -27,8 +27,7 @@ hudson.FilePath workspace = jenkinsExecutor.getCurrentWorkspace()
 println "Workspace: ${workspace?.toURI()?.getPath()}"
 
 // start the script
-//execute(workspace?.toURI()?.getPath() + DEFAULT_PIPELINE_SCRIPT_JSON_PATH)
-execute("../../" + DEFAULT_PIPELINE_SCRIPT_JSON_PATH)
+execute(workspace?.toURI()?.getPath() + DEFAULT_PIPELINE_SCRIPT_JSON_PATH)
 
 /**
  * Execute the job creator
@@ -36,6 +35,10 @@ execute("../../" + DEFAULT_PIPELINE_SCRIPT_JSON_PATH)
  * @param jobsFile  Path to the jobs file
  */
 void execute(String jobsFile) {
+    println("ID: ${jenkinsExecutor.getId()}")
+    println("wks: ${jenkinsExecutor.getCurrentWorkspace()}")
+    println("exists: ${new File(jobsFile).exists()}")
+
     // Load model
     println "[INFO][JSON Parser] Try to parse JSON file from ${jobsFile}"
     JobsModel jobsModel = loadAndParseModel(jobsFile)
